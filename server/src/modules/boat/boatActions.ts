@@ -1,4 +1,5 @@
 import type { RequestHandler } from "express";
+
 import boatRepository from "./boatRepository";
 
 const browse: RequestHandler = async (req, res, next) => {
