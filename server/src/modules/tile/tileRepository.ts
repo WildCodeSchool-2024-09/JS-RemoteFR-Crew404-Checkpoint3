@@ -11,6 +11,9 @@ type Tile = {
 };
 
 class TileRepository {
+  Tile(tileId: { id: number; coord_x: any; coord_y: any; }) {
+    throw new Error("Method not implemented.");
+  }
   async readAll() {
     // Execute the SQL SELECT query to retrieve all tiles from the "tile" table
     const [rows] = await databaseClient.query<Rows>(
@@ -22,7 +25,11 @@ class TileRepository {
   }
 
   async readByCoordinates(coordX: number, coordY: number) {
-    // your code here
+    const [rows] = await databaseClient.query<Rows>(
+      "select * from tile where coord_x=? and coord_y=? ",
+      [coordX, coordY],
+    );
+    return rows as Tile[];
   }
 
   async getRandomIsland() {
