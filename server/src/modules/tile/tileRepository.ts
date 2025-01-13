@@ -21,13 +21,20 @@ class TileRepository {
     return rows as Tile[];
   }
 
+  // async readByCoordinates(coordX: number, coordY: number) {
+  //   // your code here
+  //   const [rows] = await databaseClient.query<Rows>(
+  //     "select * from tile where coord_x = ? and coord_y = ?",
+  //     [coordX, coordY],
+  //   );
+  //   return rows[0] as Tile | null;
+  // }
   async readByCoordinates(coordX: number, coordY: number) {
-    // your code here
     const [rows] = await databaseClient.query<Rows>(
       "select * from tile where coord_x = ? and coord_y = ?",
       [coordX, coordY],
     );
-    return rows[0] as Tile | null;
+    return rows as Tile[];
   }
 
   async getRandomIsland() {

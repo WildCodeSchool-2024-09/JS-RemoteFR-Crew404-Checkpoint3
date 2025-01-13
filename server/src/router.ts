@@ -8,15 +8,16 @@ const router = express.Router();
 
 import boatActions from "./modules/boat/boatActions";
 
-router.get("/api/boats", boatActions.browse);
+import tileActions from "./modules/tile/tileActions"; // Import tileActions
 
-router.put("/api/boats/:id", boatActions.edit); //Coucou Anthony, j'espère que tu vas bien :D
+// Ensure tileActions.validate is used before boatActions.edit
+router.put("/api/boats/:id", tileActions.validate, boatActions.edit); // Use the validate middleware before the edit handler
+
+router.get("/api/boats", boatActions.browse);
 
 import gameActions from "./modules/game/gameActions";
 
 router.post("/api/games", gameActions.add);
-
-import tileActions from "./modules/tile/tileActions";
 
 router.get("/api/tiles", tileActions.browse);
 
