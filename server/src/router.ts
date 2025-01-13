@@ -10,6 +10,8 @@ import boatActions from "./modules/boat/boatActions";
 
 router.get("/api/boats", boatActions.browse);
 
+router.get("/api/tiles", boatActions.browse);
+
 import gameActions from "./modules/game/gameActions";
 
 router.post("/api/games", gameActions.add);
