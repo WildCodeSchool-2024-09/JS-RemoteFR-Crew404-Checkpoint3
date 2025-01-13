@@ -96,3 +96,10 @@ VALUES
   ("sea", 9, 5), 
   ("sea", 10, 5), 
   ("island", 11, 5);
+
+SELECT b.coord_x, b.coord_y, t.coord_x, t.coord_y
+FROM boat AS b
+JOIN tile AS t
+ON
+  b.coord_x = t.coord_x
+  AND b.coord_y = t.coord_y;
