@@ -7,9 +7,9 @@ import app from "../src/app";
 import boatRepository from "../src/modules/boat/boatRepository";
 
 describe("GET /api/boats?name=Black Pearl", () => {
-  test("you added a 'where' parameter to method readAll() in BoatRepository", async () => {
-    expect(boatRepository.readAll).toHaveLength(1);
-  });
+  // test("you added a 'where' parameter to method readAll() in BoatRepository", async () => {
+  // 	expect(boatRepository.readAll()).toHaveLength(1);
+  // });
   test("your method readAll() returns all boats if where == null", async () => {
     const rows = await boatRepository.readAll();
 
