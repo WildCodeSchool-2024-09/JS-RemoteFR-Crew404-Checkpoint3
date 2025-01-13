@@ -1,22 +1,36 @@
-import type { RequestHandler } from "express";
-
+import type { Request, Response, NextFunction } from "express";
 import boatRepository from "./boatRepository";
 
-const browse: RequestHandler = async (req, res, next) => {
+const browse = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Fetch all boats from the database
+   
     const boats = await boatRepository.readAll();
-
-    // Respond with the boats in JSON format
     res.json(boats);
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     next(err);
   }
 };
 
-const edit: RequestHandler = async (req, res, next) => {
-  // your code here
+const edit = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const boatId = parseInt(req.params.id, 10);
+    const coord_x = Number(req.body.coord_x);
+    const coord_y = Number(req.body.coord_y);
+
+    if (isNaN(coord_x) || isNaN(coord_y)) {
+      return res.status(400).send("Invalid coordinates");
+    }
+
+    const affectedRows = await boatRepository.update({ id: boatId, coord_x, coord_y });
+
+    if (affectedRows === 0) {
+      return res.status(404).send("Boat not found");
+    }
+
+    res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
 };
 
 export default {
