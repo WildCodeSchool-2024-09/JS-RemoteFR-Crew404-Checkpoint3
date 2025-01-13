@@ -11,7 +11,7 @@ type Tile = {
 };
 
 class TileRepository {
-  Tile(tileId: { id: number; coord_x: any; coord_y: any; }) {
+  Tile(tileId: { id: number; coord_x: number; coord_y: number }) {
     throw new Error("Method not implemented.");
   }
   async readAll() {
