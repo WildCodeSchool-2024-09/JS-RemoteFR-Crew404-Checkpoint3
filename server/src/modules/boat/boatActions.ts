@@ -17,6 +17,24 @@ const browse: RequestHandler = async (req, res, next) => {
 
 const edit: RequestHandler = async (req, res, next) => {
   // your code here
+  try {
+    const { id } = req.params;
+    const { coord_x, coord_y } = req.body;
+
+    const updatedRows = await boatRepository.updateCoordinates(
+      Number(id),
+      coord_x,
+      coord_y,
+    );
+
+    if (updatedRows > 0) {
+      res.status(204).send();
+    } else {
+      res.status(404).json({ message: "Boat nope.mp4" });
+    }
+  } catch (err) {
+    next(err);
+  }
 };
 
 export default {

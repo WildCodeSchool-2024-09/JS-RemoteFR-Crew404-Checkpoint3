@@ -10,9 +10,15 @@ import boatActions from "./modules/boat/boatActions";
 
 router.get("/api/boats", boatActions.browse);
 
+router.put("/api/boats/:id", boatActions.edit); //Coucou Anthony, j'espère que tu vas bien :D
+
 import gameActions from "./modules/game/gameActions";
 
 router.post("/api/games", gameActions.add);
+
+import tileActions from "./modules/tile/tileActions";
+
+router.get("/api/tiles", tileActions.browse);
 
 /* ************************************************************************* */
 
