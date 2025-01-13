@@ -9,15 +9,35 @@ type Boat = {
   coord_y: number;
 };
 
+// class BoatRepository {
+//   async readAll(where = {}) {
+//     // Execute the SQL SELECT query to retrieve all boats from the "boat" table
+//     const [rows] = await databaseClient.query<Rows>(
+//       "select * from boat order by coord_y, coord_x",
+//     );
+
+//     // Return the array of tiles
+//     return rows as Boat[];
+//   }
 class BoatRepository {
   async readAll(where = {}) {
-    // Execute the SQL SELECT query to retrieve all boats from the "boat" table
+    // Execute the SQL SELECT query to retrieve all boats and their associated tile information
     const [rows] = await databaseClient.query<Rows>(
-      "select * from boat order by coord_y, coord_x",
+      `SELECT boat.id, boat.name, boat.coord_x, boat.coord_y, 
+              tile.id as tile_id, tile.coord_x as tile_coord_x, tile.coord_y as tile_coord_y, 
+              tile.type, tile.has_treasure
+       FROM boat
+       LEFT JOIN tile ON boat.coord_x = tile.coord_x AND boat.coord_y = tile.coord_y
+       ORDER BY boat.coord_y, boat.coord_x`,
     );
 
-    // Return the array of tiles
-    return rows as Boat[];
+    return rows as (Boat & {
+      tile_id: number;
+      tile_coord_x: number;
+      tile_coord_y: number;
+      type: string;
+      has_treasure: boolean;
+    })[];
   }
 
   async update(boatToUpdate: Partial<Boat>) {
